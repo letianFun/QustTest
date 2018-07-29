@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>滴答办公系统-学员新增</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="media/layui/css/layui.css" media="all">
+    <script type="text/javascript" src="media/js/jquery.min.js"></script>
+
+</head>
+<body>
+
+<div class="layui-container" style="margin-top: 5px">
+
+    <div id="all">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">答题数量：</label>
+            <div class="layui-input-inline">
+                <input type="number" name="number" id="num" autocomplete="off"
+                       class="layui-input">
+            </div>
+            <button class="layui-btn" id="numbtn" onclick="initData() ">开始做题</button>
+        </div>
+
+        <hr/>
+        <div id="main"></div>
+
+        <div class="layui-form-item">
+            <button class="layui-btn" id="btn" onclick="check()">确认提交</button>
+        </div>
+    </div>
+
+
+
+</div>
+
+<h1 id="title"></h1>
+<script src="media/layui/layui.js"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+    var answers;
+    var allnum;
+    var truenum = 0;//记录用户作对的题数量
+    var form;
+    layui.use(['form', 'laydate', 'upload'], function () {
+        form = layui.form, layer = layui.layer, laydate = layui.laydate;
+        //隐藏完成提交按钮
+        $("#btn").hide();
+        //默认做题数量为5道题
+        $("#num").val(5);
+        //
+        $("#title").html("准备好就开始吧！！！");
+    });
+
+    function initData() {
+        // alert(""+$("#num").val());
+        //加载题库数据
+        $.get("stuquestdo.do", "num=" + $("#num").val(), function (data) {
+            answers = data;
+            $("#main").html("");
+            for (var i = 0; i < data.length; i++) {
+                $("#main").append(
+                    "<lable>" + data[i].quest + "=</lable>"
+                    + "<input class='layui-input' id='answer" + data[i].id + "' /><br/>");
+            }
+        });
+        $("#title").html("");
+        //显示提交按钮
+        $("#btn").show();
+        $("#numbtn").hide();
+        //将本次测试前的数据放入到数据库中
+        allnum = $("#num").val();
+        $.get("testadd.do", "num=" + allnum, null);
+    }
+
+    function check() {
+        // tid INT, qid INT,istf INT,uanswer,创建一个json对象
+        var json = [];
+        for (var i = 0; i < answers.length; i++) {
+            //生成对象
+            var j = {};
+            j.uanswer = $("#answer" + answers[i].id).val();
+            //进行判断对错
+            if (answers[i].answer == j.uanswer) {
+                //1	用户输入正确
+                j.istf = 1;
+                truenum = truenum + 1;
+                alert("比较时的truename:" + truenum);
+
+            } else {
+                //2：用户输入错误
+                j.istf = 2;
+            }
+            //将id传入接送数据
+            j.qid = answers[i].id;
+            //放入到数组中
+            json.push(j);
+        }
+
+        var testdetail = JSON.stringify(json);
+        // alert(testdetail);
+        var testdetails = encodeURI(JSON.stringify(testdetail));
+        //alert("url转码后"+testdetails)
+        alert("进行提交的truename" + truenum);
+        if (confirm("是否进行提交")) {
+            $.get("testdetailadd.do", "testdetails=" + testdetails + "&truenum=" + truenum, function (data) {
+                if (data.code == 1000) {
+                    if (confirm(data.msg)) {
+                        history.go(0);
+                    }else{
+                        $("#main").html("");
+                        //将用户的
+                        $("#title").html("你一共做了" + allnum + "道题, 对了:" + truenum + ",错了:" + allnum - truenum);
+                        //隐藏完成提交按钮
+                        $("#btn").hide();
+                    }
+                } else {
+                    alert(data.msg);
+                }
+            })
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>有点厉害的答题-主页</title>
+<link rel="stylesheet" href="media/layui/css/layui.css" media="all">
+<!-- <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css"> -->
+<link rel="stylesheet" href="media/css/app.css" media="all">
+</head>
+
+<body>
+	<div class="layui-layout layui-layout-admin kit-layout-admin">
+		<div class="layui-header">
+			<div class="layui-logo">
+				<img src="media/images/qf_logo.png" style="margin-right: 10px" /><span
+					style="font-size: 22px">有点厉害的系统</span>
+			</div>
+			<div class="layui-logo kit-logo-mobile">Feri</div>
+			<ul class="layui-nav layui-layout-left kit-nav">
+			</ul>
+			<ul class="layui-nav layui-layout-right kit-nav">
+				<li class="layui-nav-item"><a href="javascript:;"> <img
+						src="media/images/qf.jpg" class="layui-nav-img"> Feri
+				</a>
+					<dl class="layui-nav-child">
+						<dd>
+							<a href="javascript:;">基本资料</a>
+						</dd>
+						<dd>
+							<a href="javascript:;">安全设置</a>
+						</dd>
+					</dl></li>
+				<li class="layui-nav-item"><a href='loginout.do'><i
+						class="fa fa-sign-out" aria-hidden="true"></i>注销</a></li>
+			</ul>
+		</div>
+
+		<div class="layui-side layui-bg-black kit-side">
+			<div class="layui-side-scroll">
+				<div class="kit-side-fold">
+					<i class="fa fa-navicon" aria-hidden="true"></i>
+				</div>
+				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+				<ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar"
+					kit-navbar>
+
+					<li class="layui-nav-item"><a href="javascript:;"><i
+							class="fa fa-plug" aria-hidden="true"></i><span>试题管理</span></a>
+						<dl class="layui-nav-child">
+
+							<dd>
+								<a href="javascript:;" data-url="questlist.html" data-icon="fa-user"
+									data-title="试题列表" kit-target data-id='31'><i
+									class="layui-icon">&#xe6c6;</i><span>试题列表</span></a>
+							</dd>
+							<dd>
+								<a href="javascript:;" data-url="questadd.html"
+									data-icon="fa-user" data-title="试题新增" kit-target data-id='32'><i
+									class="layui-icon">&#xe628;</i><span>试题新增</span></a>
+							</dd>
+
+						<!--	<dd>
+								<a href="javascript:;" data-url="staffbatch.html"
+									data-icon="fa-user" data-title="试题导入" kit-target data-id='32'><i
+									class="layui-icon">&#xe628;</i><span>员工导入</span></a>
+							</dd>-->
+						</dl></li>
+					<li class="layui-nav-item"><a href="javascript:;"><i
+							class="fa fa-plug" aria-hidden="true"></i><span>试题分类管理</span></a>
+						<dl class="layui-nav-child">
+
+							<dd>
+								<a href="javascript:;" data-url="questtypelist.html" data-icon="fa-user"
+								   data-title="分类列表" kit-target data-id='41'><i
+										class="layui-icon">&#xe6c6;</i><span>分类列表</span></a>
+							</dd>
+							<dd>
+								<a href="javascript:;" data-url="questtypeadd.html" data-icon="fa-user"
+								   data-title="新增分类" kit-target data-id='42'><i
+										class="layui-icon">&#xe628;</i><span>新增分类</span></a>
+							</dd>
+						</dl></li>
+					<li class="layui-nav-item"><a href="javascript:;"><i
+							class="fa fa-plug" aria-hidden="true"></i><span>测试管理</span></a>
+						<dl class="layui-nav-child">
+
+							<dd>
+								<a href="javascript:;" data-url="allusertestlist.html" data-icon="fa-user"
+									data-title="测试列表" kit-target data-id='41'><i
+									class="layui-icon">&#xe6c6;</i><span>测试列表</span></a>
+							</dd>
+						<!--	<dd>
+								<a href="javascript:;" data-url="courseadd.html" data-icon="fa-user"
+									data-title="测试新增" kit-target data-id='42'><i
+									class="layui-icon">&#xe628;</i><span>测试新增</span></a>
+							</dd>-->
+						</dl></li>
+
+
+				</ul>
+			</div>
+		</div>
+		<div class="layui-body" id="container">
+			<!-- 内容主体区域 -->
+			<div style="padding: 15px;" style="margin-top: 3px">主体内容加载中,请稍等...</div>
+		</div>
+
+		<div class="layui-footer">
+			<p>
+				Copyright 2011-2018 <a href="http://www.1000phone.com/"
+					rel="nofollow" target="_blank" title="千锋互联">有点厉害科技有限公司 Feri
+					版权所有</a> 京ICP备12003911号-3 京公网安备11010802011455号
+			</p>
+		</div>
+	</div>
+
+	<script src="media/layui/layui.js"></script>
+	<script>
+		var message;
+		layui.config({
+			base : 'media/layui/lay/modules/'
+		}).use([ 'app', 'message' ], function() {
+			var app = layui.app, $ = layui.jquery, layer = layui.layer;
+			//将message设置为全局以便子页面调用
+			message = layui.message;
+			//主入口
+			app.set({
+				type : 'iframe'
+			}).init();
+
+		});
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>有点厉害答题系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <!-- load css -->
+    <link rel="stylesheet" type="text/css" href="media/layui/css/layui.css"
+          media="all">
+    <link rel="stylesheet" type="text/css" href="media/css/login.css"
+          media="all">
+    <link rel="stylesheet" type="text/css" href="media/css/verify.css">
+
+
+</head>
+<body>
+<div class="layui-canvs"></div>
+<div class="layui-layout layui-layout-login">
+    <form action="login.do" method="post">
+        <h1>
+            <strong>有点厉害的答题统Login</strong> <em>欢迎登陆</em>
+        </h1>
+
+
+        <div class="layui-user-icon larry-login">
+            <input type="text" placeholder="账号" autocomplete="off" class="login_txtbx" name="username"/>
+        </div>
+        <div class="layui-pwd-icon larry-login">
+            <input type="password" placeholder="密码" name="password"
+                   class="login_txtbx"/>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">身份选择:</label>
+            <div class="layui-input-inline">
+                <select name="role">
+                    <option value="1">学生登录</option>
+                    <option value="2">管理员登录</option>
+
+                </select>
+            </div>
+        </div>
+        <div class="lihao-code">
+            <div id="mpanel1"></div>
+
+        </div>
+        <div class="layui-submit larry-login">
+            <input type="submit" id="btn1" disabled="disabled" value="立即登陆"
+                   class="submit_btn"/>
+        </div>
+
+    </form>
+    <div class="layui-login-text">
+        <p><a href="register.html">立即注册</a></p>
+    </div>
+    <br/>
+    <div class="layui-login-text">
+        <p>有点厉害管理平台 版权所有</p>
+    </div>
+</div>
+<script type="text/javascript" src="media/layui/layui.all.js"></script>
+<script type="text/javascript" src="media/js/login.js"></script>
+
+<script type="text/javascript" src="media/js/verify.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#mpanel1').slideVerify({
+            type: 1,		//类型
+            vOffset: 5,	//误差量，根据需求自行调整
+            barSize: {
+                width: '80%',
+                height: '40px',
+            },
+            ready: function () {
+            },
+            success: function () {
+                //alert('验证成功，添加你自己的代码！');
+                //......后续操作
+                $("#btn1").attr("disabled", false);
+            },
+            error: function () {
+//		        	alert('验证失败！');
+            }
+
+        });
+
+
+    });
+</script>
+</body>
+</html>
